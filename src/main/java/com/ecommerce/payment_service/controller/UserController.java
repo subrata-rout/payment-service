@@ -3,7 +3,6 @@ package com.ecommerce.payment_service.controller;
 import com.ecommerce.payment_service.dto.UserDTO;
 import com.ecommerce.payment_service.service.UserService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

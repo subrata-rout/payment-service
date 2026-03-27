@@ -59,12 +59,12 @@ public class OrderService {
                         "User not found with id: " + dto.getUserId()));
 
         // Build the Order entity from DTO
-        Order order = Order.builder()
-                .user(user)             // full User object, not just the ID
-                .amount(dto.getAmount())
-                .description(dto.getDescription())
+        Order order = new Order();
+                order.setUser(user);             // full User object, not just the ID
+                order.setAmount(dto.getAmount());
+                order.setDescription(dto.getDescription());
                 // status and createdAt set automatically by @PrePersist
-                .build();
+
 
         Order saved = orderRepository.save(order);
         return toDTO(saved);
@@ -120,14 +120,13 @@ public class OrderService {
      *   in every order response — unnecessary and potentially unsafe.
      */
     private OrderDTO toDTO(Order order) {
-        return OrderDTO.builder()
-                .id(order.getId())
-                .userId(order.getUser().getId())
-                .amount(order.getAmount())
-                .status(order.getStatus().name())
-                .description(order.getDescription())
-                .createdAt(order.getCreatedAt() != null ?
-                        order.getCreatedAt().toString() : null)
-                .build();
+        return new OrderDTO(
+                order.getId(),
+                order.getUser().getId(),    // only the userId, not full User object
+                order.getAmount(),
+                order.getStatus().name(),   // enum → String e.g. "PENDING"
+                order.getDescription(),
+                order.getCreatedAt() != null ? order.getCreatedAt().toString() : null
+        );
     }
 }

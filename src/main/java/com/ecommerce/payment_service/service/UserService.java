@@ -3,8 +3,6 @@ package com.ecommerce.payment_service.service;
 import com.ecommerce.payment_service.dto.UserDTO;
 import com.ecommerce.payment_service.model.User;
 import com.ecommerce.payment_service.repository.UserRepository;
-import jdk.dynalink.linker.LinkerServices;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,11 +54,12 @@ public class UserService {
     }
 
     private UserDTO toDTO(User user) {
-        UserDTO dto = new UserDTO();
-        dto.setId(user.getId());
-        dto.setName(user.getName());
-        dto.setEmail(user.getEmail());
-        dto.setPhone(user.getPhone());
-        return dto;
+        UserDTO userDTO=new UserDTO();
+        userDTO.setId(user.getId());
+                userDTO.setName(user.getName());
+                userDTO.setEmail(user.getEmail());
+                userDTO.setPhone(user.getPhone());
+                return userDTO;
+
     }
 }

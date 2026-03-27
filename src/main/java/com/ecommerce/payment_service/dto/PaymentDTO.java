@@ -9,10 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class PaymentDTO {
 
 /**
@@ -47,4 +44,91 @@ public class PaymentDTO {
         private String failureReason;   // set by server if payment fails
         private String createdAt;
 
+        public PaymentDTO() {
+        }
+
+        public PaymentDTO(Long id, Long orderId, String gateway, BigDecimal amount, String currency, String status, String transactionId, String failureReason, String createdAt) {
+                this.id = id;
+                this.orderId = orderId;
+                this.gateway = gateway;
+                this.amount = amount;
+                this.currency = currency;
+                this.status = status;
+                this.transactionId = transactionId;
+                this.failureReason = failureReason;
+                this.createdAt = createdAt;
+        }
+
+        public Long getId() {
+                return id;
+        }
+
+        public Long getOrderId() {
+                return orderId;
+        }
+
+        public String getGateway() {
+                return gateway;
+        }
+
+        public BigDecimal getAmount() {
+                return amount;
+        }
+
+        public String getCurrency() {
+                return currency;
+        }
+
+        public String getStatus() {
+                return status;
+        }
+
+        public String getTransactionId() {
+                return transactionId;
+        }
+
+        public String getFailureReason() {
+                return failureReason;
+        }
+
+        public String getCreatedAt() {
+                return createdAt;
+        }
+
+
+        public void setId(Long id) {
+                this.id = id;
+        }
+
+        public void setOrderId(Long orderId) {
+                this.orderId = orderId;
+        }
+
+        public void setGateway(String gateway) {
+                this.gateway = gateway;
+        }
+
+        public void setAmount(BigDecimal amount) {
+                this.amount = amount;
+        }
+
+        public void setCurrency(String currency) {
+                this.currency = currency;
+        }
+
+        public void setStatus(String status) {
+                this.status = status;
+        }
+
+        public void setTransactionId(String transactionId) {
+                this.transactionId = transactionId;
+        }
+
+        public void setFailureReason(String failureReason) {
+                this.failureReason = failureReason;
+        }
+
+        public void setCreatedAt(String createdAt) {
+                this.createdAt = createdAt;
+        }
 }

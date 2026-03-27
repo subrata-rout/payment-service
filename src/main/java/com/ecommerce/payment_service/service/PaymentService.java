@@ -84,17 +84,16 @@ public class PaymentService {
         }
 
         // Step 4: Create Payment record in DB (status = INITIATED)
-        Payment payment = Payment.builder()
-                .order(order)
-                .gateway(gateway)
-                .amount(dto.getAmount() != null ? dto.getAmount() : order.getAmount())
-                .currency(dto.getCurrency() != null ? dto.getCurrency() : "INR")
-                // transactionId and status set by @PrePersist
-                .build();
+
+        Payment payment = new Payment();
+        payment.setOrder(order);
+        payment.setGateway(gateway);
+        payment.setAmount(dto.getAmount() != null ? dto.getAmount() : order.getAmount());
+        payment.setCurrency(dto.getCurrency() != null ? dto.getCurrency() : "INR");
 
         // Step 5: Simulate gateway call
         // WHY UUID: globally unique, same format real gateways use
-        // Day 3: replace this with actual Stripe/Razorpay API call
+        // replace this with actual Stripe/Razorpay API call
         String simulatedTransactionId = gateway.name() + "_" +
                 UUID.randomUUID().toString().replace("-", "").substring(0, 16).toUpperCase();
 
@@ -135,17 +134,16 @@ public class PaymentService {
      *   Keeps the response clean and avoids over-fetching.
      */
     private PaymentDTO toDTO(Payment payment) {
-        return PaymentDTO.builder()
-                .id(payment.getId())
-                .orderId(payment.getOrder().getId())
-                .gateway(payment.getGateway().name())
-                .status(payment.getStatus().name())
-                .transactionId(payment.getTransactionId())
-                .amount(payment.getAmount())
-                .currency(payment.getCurrency())
-                .failureReason(payment.getFailureReason())
-                .createdAt(payment.getCreatedAt() != null ?
-                        payment.getCreatedAt().toString() : null)
-                .build();
+        return new PaymentDTO(
+                payment.getId(),
+                payment.getOrder().getId(),
+                payment.getGateway().name(),
+                payment.getAmount(),
+                payment.getCurrency(),
+                payment.getStatus().name(),
+                payment.getTransactionId(),
+                payment.getFailureReason(),
+                payment.getCreatedAt() != null ? payment.getCreatedAt().toString() : null
+        );
     }
 }

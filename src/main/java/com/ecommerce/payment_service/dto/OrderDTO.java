@@ -23,10 +23,8 @@ import java.math.BigDecimal;
  *   Clients only see what they need, nothing more.
  */
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+
+
 public class OrderDTO {
     // id is null on CREATE requests, populated in responses
     private Long id;
@@ -44,4 +42,32 @@ private BigDecimal amount;
     private String status;      // read-only in responses, set by server
     private String description;
     private String createdAt;   // String for clean API response formatting
+
+    public OrderDTO() {}
+
+    public OrderDTO(Long id, Long userId, BigDecimal amount,
+                    String status, String description, String createdAt) {
+        this.id = id;
+        this.userId = userId;
+        this.amount = amount;
+        this.status = status;
+        this.description = description;
+        this.createdAt = createdAt;
+    }
+
+    // Getters — Spring needs these to read field values
+    public Long getId() { return id; }
+    public Long getUserId() { return userId; }
+    public BigDecimal getAmount() { return amount; }
+    public String getStatus() { return status; }
+    public String getDescription() { return description; }
+    public String getCreatedAt() { return createdAt; }
+
+    // Setters — Spring needs these to populate from JSON
+    public void setId(Long id) { this.id = id; }
+    public void setUserId(Long userId) { this.userId = userId; }
+    public void setAmount(BigDecimal amount) { this.amount = amount; }
+    public void setStatus(String status) { this.status = status; }
+    public void setDescription(String description) { this.description = description; }
+    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
 }
